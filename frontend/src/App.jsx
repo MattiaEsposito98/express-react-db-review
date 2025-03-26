@@ -1,31 +1,15 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import HomePage from './pages/HomePage'
+import Show from './pages/Show'
+
 function App() {
-  const [dati, setDati] = useState([])
-
-  const fetchItem = () => {
-    axios.get(`http://localhost:3000/item`)
-      .then(res => {
-        console.log(res)
-        setDati(res.data)
-      })
-      .catch(err => console.error(err))
-  }
-
-  useEffect(() => {
-    fetchItem()
-  }, [])
-
   return (
-    <>
-      <h1>React</h1>
-      <ul>
-        {dati.map(dato => (
-          <li key={dato.id}> {dato.name}</li>
-        ))}
-      </ul>
-
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path="/items/:id" element={<Show />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
